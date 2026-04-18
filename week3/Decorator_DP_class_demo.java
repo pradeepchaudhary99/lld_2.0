@@ -1,8 +1,7 @@
+package week3;
 // package week2.week3;
 
-import java.security.Timestamp;
-
-import netscape.javascript.JSException;
+import java.util.concurrent.TimeoutException;
 
 interface Logger{
     void log(String message);
@@ -10,7 +9,7 @@ interface Logger{
 
 class ConsoleLogger implements Logger{
     public void log(String message){
-        System.out.println(message);
+        System.out.println("Console Logger" +message);
     }
 }
 
@@ -20,41 +19,51 @@ class FileLogger implements Logger{
     }
 }
 
-// thre will be different types of factory --> interface 
-
-// Abstract Decorator --> it can be generalized to create any decorator for this baseClass logger
-
 abstract class LoggerDecorator implements Logger{
-    protected Logger logger;
+    Logger logger; //Base concreate class
     LoggerDecorator(Logger logger){
         this.logger = logger;
     }
 }
 
-class TimeStampLogger extends LoggerDecorator{
-    TimeStampLogger(Logger logger){
+
+class TimeStampDecorator extends LoggerDecorator{
+
+    public TimeStampDecorator(Logger logger){
         super(logger);
     }
 
     @Override
     public void log(String message){
-        // add timestamp
-        String msg = System.currentTimeMillis() +" : "+message;
-        logger.log(msg);
+        //Timestamps code
+        System.out.println("TimeStemp [][][][] added");
+        System.out.println("TimeStemp [][][][] added");
+        logger.log(message);    //now the base class got the chance to run its code.
     }
+
 }
+    // TimeStempLogger()
 
-class JsonParsing extends LoggerDecorator{
-    JsonParsing(Logger logger){
+
+class JsonParserDecorator extends LoggerDecorator{
+    public JsonParserDecorator(Logger logger){
         super(logger);
     }
     @Override
     public void log(String message){
-        // add timestamp
-        System.out.println("Json parsing happening for message");
+
+        //json parse will add its piece of code
+        System.out.println("Json Parser [][][][] added");
+        System.out.println("Json Parser [][][][] added");
+
         logger.log(message);
+
+
+
+
     }
 }
+
 
 
 public class Decorator_DP_class_demo {
@@ -63,12 +72,9 @@ public class Decorator_DP_class_demo {
         // // consoleLogger.log("Pradeep without any decorator");
         // TimeStampLogger timeStampLogger = new TimeStampLogger(fileLogger);
         // timeStampLogger.log("Message of the user");
-
-        JsonParsing jsonParsing = new JsonParsing(
-                                                new TimeStampLogger(
-                                                        new ConsoleLogger())
-                                                );
-        jsonParsing.log("Pradeep sending message");
+        
+        Logger log = new TimeStampDecorator(new JsonParserDecorator(new ConsoleLogger()));
+        log.log("Pradeep teaching lld");
                                                     
 
     }

@@ -1,3 +1,4 @@
+package week1;
 import java.time.format.SignStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,9 @@ class Board{
             return true;
         }
         return false;
+    }
+    public boolean checkWinOptimized(Symbol symbol){
+        // check the winning conditi
     }
 
     public void displayBoard(){
