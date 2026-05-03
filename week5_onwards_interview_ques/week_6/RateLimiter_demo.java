@@ -65,7 +65,7 @@ class TokenBucket{
         if(tokensAdded > 0){
             // then only a valid
             System.out.println("Refill: "+System.currentTimeMillis());
-            tokens = Math.min(capacity, tokens + tokensAdded);
+            tokens = Math.min(capacity, tokens + tokensAdded);  // 100, 40 + 200
             lastRefillTime = System.currentTimeMillis();
         }
     }
